@@ -23,5 +23,5 @@ class MovieController extends AbstractController
             'movies' => $movies
         ]);
     }
-    
+
 }
