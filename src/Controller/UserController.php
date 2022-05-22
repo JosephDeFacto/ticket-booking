@@ -13,6 +13,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
+
+    // Put registration in its own Controller
     /**
      * @Route("user/register", name="user_register")
      */
@@ -26,14 +28,14 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $passwordHasher->hashPassword($user, $user->getPassword());
             $user->setPassword($password);
-            $user->setRoles((array)'ROLE_ADMIN');
+            $user->setRoles((array)'ROLE_USER');
 
             $entityManager = $registry->getManager();
 
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('login');
         }
 
         return $this->render('user/register.html.twig', [

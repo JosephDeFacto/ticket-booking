@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% set minutes = ' minutes' %}
+
+{% block body %}
+    <style>
+        a {
+            display: flex;
+            justify-content: center;
+            text-decoration: none;
+
+        }
+    </style>
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Duration</th>
+                <th>Language</th>
+                <th>Release Date</th>
+                <th>Country</th>
+                <th>Genre</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ movie.title }}</td>
+                <td>{{ movie.description }}</td>
+                <td>{{ movie.duration ~ minutes }}</td>
+                <td>{{ movie.language }}</td>
+                <td>{{ movie.releaseDate }}</td>
+                <td>{{ movie.country }}</td>
+                <td>{{ movie.genre }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="{{ path('booking_movie', {id: movie.id}) }}">Book a movie</a>
+
+
+{% endblock %}
