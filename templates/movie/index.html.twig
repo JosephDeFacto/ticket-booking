@@ -8,7 +8,7 @@
         margin-top: 20px;
     }
 </style>
-
+{{ parent() }}
 <div class="container">
     {% if is_granted('ROLE_ADMIN') %}
         <table class="table table-dark">

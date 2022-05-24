@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Movie;
+use App\Entity\Show;
 use App\Entity\User;
 use App\Repository\MovieRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -35,13 +36,20 @@ class MovieController extends AbstractController
     {
         $movie = $registry->getRepository(Movie::class)->find($id);
 
+        foreach ($movie->getShows() as $show) {
+            dd($show);
+        }
+
+
+
        /* if (!$movie) {
             throw $this->createNotFoundException(
                 $message);
         }*/
 
         return $this->render('movie/detail.html.twig', [
-            'movie' => $movie
+            'movie' => $movie,
+            //'show' => $show
         ]);
     }
 

@@ -64,9 +64,15 @@ class Movie
      */
     private $booking;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Show::class, mappedBy="movie")
+     */
+    private $shows;
+
     public function __construct()
     {
         $this->booking = new ArrayCollection();
+        $this->shows = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -194,6 +200,36 @@ class Movie
             // set the owning side to null (unless already changed)
             if ($booking->getMovie() === $this) {
                 $booking->setMovie(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Show>
+     */
+    public function getShows(): Collection
+    {
+        return $this->shows;
+    }
+
+    public function addShow(Show $show): self
+    {
+        if (!$this->shows->contains($show)) {
+            $this->shows[] = $show;
+            $show->setMovie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeShow(Show $show): self
+    {
+        if ($this->shows->removeElement($show)) {
+            // set the owning side to null (unless already changed)
+            if ($show->getMovie() === $this) {
+                $show->setMovie(null);
             }
         }
 
